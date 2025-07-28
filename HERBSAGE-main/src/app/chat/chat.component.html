@@ -1,0 +1,43 @@
+<app-header></app-header>
+<div class="bg-amber-50 min-h-screen py-10 px-4">
+  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow p-6 flex flex-col h-[80vh]">
+    <!-- Chat Window -->
+    <div class="flex-1 overflow-y-auto space-y-4 mb-6 pr-2">
+      @for (chat of chats(); track $index) {
+        <div class="flex justify-end" *ngIf="chat.question">
+          <div class="bg-[#8c4f3d] text-white p-3 rounded-lg max-w-[70%]">
+            {{ chat.question }}
+          </div>
+        </div>
+        <div class="flex justify-start">
+          <div class="bg-[#db9985] bg-[#8c4f3d] p-3 rounded-lg max-w-[70%]">
+            {{ chat.reply }}
+          </div>
+        </div>
+      }
+
+      @if (isThinking()) {
+        <div class="flex justify-start">
+          <div class="bg-[#d69b89] bg-[#8c4f3d] p-3 rounded-lg max-w-[70%]">
+            AI is thinking...
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Message Form -->
+    <form class="flex gap-2" (submit)="sendMessage(); $event.preventDefault()">
+      <input
+        type="text"
+        [(ngModel)]="message"
+        name="message"
+        placeholder="Type your message..."
+        class="flex-1 p-3 border bg-[#c68876]  rounded-lg focus:outline-none focus:ring-2 bg-[#684337]"
+      />
+      <button type="submit" class="bg-amber-50" text-white px-5 py-3 rounded-lg  transition>
+        SEND
+      </button>
+    </form>
+  </div>
+</div>
+<app-footer></app-footer>
